@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Header, Table, Image, Loader, Button, Dropdown } from 'semantic-ui-react';
+import { Grid, Segment, Header, Table, Image, Loader, Button, Dropdown, Tab } from 'semantic-ui-react';
 import { EspnFantasyFootballApi } from '../api/EspnFantasyFootballApi';
 import { withRouter, Link } from 'react-router-dom';
 
@@ -145,15 +145,25 @@ class AllTimeRankingsTable extends Component {
 
     render() {
         const {userTotalHistoricalData} = this.state;
+        /*const panes = [
+            {menuItem: 'Tab 1', pane:{key: 'tab1', content: 'This is tab 1'}},
+            {menuItem: 'Tab 2', 
+                pane:(
+                        <Tab.Pane key='tab2'>
+                            <p>This tab has complex content</p>
 
+                        </Tab.Pane>
+                )},
+        ]*/
         return (
         <div>
             <Loader active={this.state.loading}/>
+            {/*}<Tab panes={panes} renderActiveOnly={false} />{*/}
             <Grid centered>
                 <Grid.Row>
                 </Grid.Row>
                 {userTotalHistoricalData.length > 0 && <Grid.Row>
-                <Grid.Column computer={13} tablet={13} mobile={16}>
+                <Grid.Column computer={15} tablet={15} mobile={16}>
                     <Link to="/">Switch to a different League</Link>
                     <Segment>
                     <Header>All Time Stats {this.props.match.params.seasonId}</Header>
@@ -191,13 +201,13 @@ class AllTimeRankingsTable extends Component {
                             </Table.HeaderCell>
                             <Table.HeaderCell>Titles</Table.HeaderCell>
                             <Table.HeaderCell>Sackos</Table.HeaderCell>
-                            <Table.HeaderCell>Points For Total Through {this.props.match.params.seasonId} </Table.HeaderCell>
-                            <Table.HeaderCell>Points Against Total Through {this.props.match.params.seasonId}</Table.HeaderCell>
+                            <Table.HeaderCell>PF Through {this.props.match.params.seasonId} </Table.HeaderCell>
+                            <Table.HeaderCell>PA Through {this.props.match.params.seasonId}</Table.HeaderCell>
                             <Table.HeaderCell>Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>Points For Total-Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>Points Against Total-Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>Points For Per Year Completed</Table.HeaderCell>
-                            <Table.HeaderCell>Points Against Per Year Completed</Table.HeaderCell>
+                            <Table.HeaderCell>PF Years Completed</Table.HeaderCell>
+                            <Table.HeaderCell>PA Years Completed</Table.HeaderCell>
+                            <Table.HeaderCell>PF/Years Completed</Table.HeaderCell>
+                            <Table.HeaderCell>PA/Years Completed</Table.HeaderCell>
                         </Table.Row>
                         </Table.Header>
 
@@ -206,9 +216,10 @@ class AllTimeRankingsTable extends Component {
                         <Table.Row>
                             <Table.Cell>
                             <Header as='h4' image>
-                                <a href={"http://games.espn.com" + team.teampage}>
-                                <Image src={team.imgUrl} shape='rounded' size='mini' /></a>
+
                                 <Header.Content>
+                                <a href={"http://games.espn.com" + team.teampage}>
+                                <Image src={team.imgUrl} shape='rounded' size='mini' avatar='true'/></a>
                                 {index+1}. <a href={"http://games.espn.com" + team.teampage}>{team.teamname}</a>
                                 <Header.Subheader>{team.owner}</Header.Subheader>
                                 </Header.Content>
