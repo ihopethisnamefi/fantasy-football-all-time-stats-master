@@ -88,8 +88,8 @@ export class EspnFantasyFootballApi {
         return(yearsHistoryArray);
     }
 
-    getHistoricalUserData = async (leagueId, seasonId) => {
-        const yearsArray = await this.getYearsHistory(leagueId, seasonId);
+    getHistoricalUserData = async (leagueId, seasonId, yearsArray) => {
+        //const yearsArray = await this.getYearsHistory(leagueId, seasonId);
         let historicalTeamsArray = [];
         for (let y=1; y<yearsArray.length; y++){
             var response = await axios.get(`${this.proxyurl}http://games.espn.com/ffl/tools/finalstandings?leagueId=${leagueId}&seasonId=${yearsArray[y]}`);
@@ -133,8 +133,8 @@ export class EspnFantasyFootballApi {
         //return this.calculateSeasonWinTotal(weeklyWinsForSeason);
     }
 
-    getHistorySummationData = async (leagueId, seasonId) => {
-        const historyTeamsArray = await this.getHistoricalUserData(leagueId, seasonId);
+    getHistorySummationData = async (leagueId, seasonId, yearsArray) => {
+        const historyTeamsArray = await this.getHistoricalUserData(leagueId, seasonId, yearsArray);
         let historySummationArray = [];
         let userCount = 0;
         //console.log(historyTeamsArray);
@@ -187,9 +187,9 @@ export class EspnFantasyFootballApi {
 
     getTotalUserData = async (leagueId, seasonId) => {
         const yearsArray = await this.getYearsHistory(leagueId, seasonId);
-        console.log(yearsArray);
+        //console.log(yearsArray);
         if (yearsArray.length > 0){
-            const historyData = await this.getHistorySummationData(leagueId, seasonId);
+            const historyData = await this.getHistorySummationData(leagueId, seasonId, yearsArray);
             const currentData = await this.getCurrentUserData(leagueId, seasonId);
             //console.log(currentData);
             //console.log(historyData);
@@ -216,6 +216,8 @@ export class EspnFantasyFootballApi {
                             totalUserDataArray[user].imgUrl = currentData[team].imgUrl;
                     }
                 }
+                totalUserDataArray[user].pfya = (totalUserDataArray[user].pf/totalUserDataArray[user].yearsActive).toFixed(1);
+                totalUserDataArray[user].paya = (totalUserDataArray[user].pa/totalUserDataArray[user].yearsActive).toFixed(1);
                 totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
             }
             //console.log(totalUserDataArray);
@@ -226,22 +228,19 @@ export class EspnFantasyFootballApi {
             //console.log(currentData);
             //console.log(historyData);
             let totalUserDataArray = currentData;
-            let userCount = 0;
 
+            //console.log(totalUserDataArray);
             for (let user in totalUserDataArray){
                 totalUserDataArray[user].pfhistory = 0;
                 totalUserDataArray[user].pahistory = 0;
-                userCount++;
-            }
-            //console.log(totalUserDataArray);
-            for (let user in totalUserDataArray){
-
-                            totalUserDataArray[user].pfcurrent = (Number(totalUserDataArray[user].pf)).toFixed(1);
-                            totalUserDataArray[user].pacurrent = (Number(totalUserDataArray[user].pa)).toFixed(1);
-                            totalUserDataArray[user].championships = [];
-                            totalUserDataArray[user].sackos = [];
-               
+                totalUserDataArray[user].pfcurrent = (Number(totalUserDataArray[user].pf)).toFixed(1);
+                totalUserDataArray[user].pacurrent = (Number(totalUserDataArray[user].pa)).toFixed(1);
+                totalUserDataArray[user].championships = [];
+                totalUserDataArray[user].sackos = [];
+                totalUserDataArray[user].yearsActive = 0;
                 totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
+                totalUserDataArray[user].pfya = totalUserDataArray[user].pfcurrent;
+                totalUserDataArray[user].paya = totalUserDataArray[user].pacurrent;
             }
             //console.log(totalUserDataArray);
             return(totalUserDataArray);

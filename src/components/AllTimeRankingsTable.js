@@ -260,10 +260,10 @@ class AllTimeRankingsTable extends Component {
                                 {team.pa}
                             </Table.Cell>
                             <Table.Cell>
-                                {(team.pf/team.yearsActive).toFixed(1)}
+                                {team.pfya}
                             </Table.Cell>
                             <Table.Cell>
-                                {(team.pa/team.yearsActive).toFixed(1)}
+                                {team.paya}
                             </Table.Cell>
                         </Table.Row>
                         )}
