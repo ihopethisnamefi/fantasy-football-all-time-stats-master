@@ -1,6 +1,6 @@
 # ESPN Fantasy Football All Time Stats
 
-To Do:
+## To Do:
 1. add all historical teams to returned array DONE
 2. sort headers for all columns
 3. add two tabs, one for points one for wins for viewing pleasure
@@ -8,12 +8,12 @@ To Do:
 5. Fix pictures
 6. update UI
 
-# Development
+## Development
 Built with [create-react-app](https://github.com/facebookincubator/create-react-app)
 
 Run with: `yarn start` 
 
-# Test League IDs
+## Test League IDs
 Good to go
 http://games.espn.com/ffl/leagueoffice?leagueId=164548&seasonId=2017
 http://games.espn.com/ffl/leagueoffice?leagueId=164834&seasonId=2017
