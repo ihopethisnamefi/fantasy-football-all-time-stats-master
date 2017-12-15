@@ -84,6 +84,7 @@ export class EspnFantasyFootballApi {
         $('[id=seasonHistoryMenu]').children().each( (i, elm) => {
             yearsHistoryArray.push($(elm).text());
         });
+        //console.log(yearsHistoryArray.length);
         return(yearsHistoryArray);
     }
 
@@ -185,37 +186,67 @@ export class EspnFantasyFootballApi {
     }
 
     getTotalUserData = async (leagueId, seasonId) => {
-        const historyData = await this.getHistorySummationData(leagueId, seasonId);
-        const currentData = await this.getCurrentUserData(leagueId, seasonId);
-        //console.log(currentData);
-        //console.log(historyData);
-        let totalUserDataArray = historyData;
-        let userCount = 0;
+        const yearsArray = await this.getYearsHistory(leagueId, seasonId);
+        console.log(yearsArray);
+        if (yearsArray.length > 0){
+            const historyData = await this.getHistorySummationData(leagueId, seasonId);
+            const currentData = await this.getCurrentUserData(leagueId, seasonId);
+            //console.log(currentData);
+            //console.log(historyData);
+            let totalUserDataArray = historyData;
+            let userCount = 0;
 
-        for (let user in totalUserDataArray){
-            totalUserDataArray[user].pfhistory = 0;
-            totalUserDataArray[user].pahistory = 0;
-            userCount++;
-        }
-        //console.log(totalUserDataArray);
-        for (let user in totalUserDataArray){
-                for (let team in currentData){
-                    if (currentData[team].owner === totalUserDataArray[user].owner){
-                        totalUserDataArray[user].teamname = currentData[team].teamname;
-                        totalUserDataArray[user].team = currentData[team].team;
-                        totalUserDataArray[user].teampage = currentData[team].teampage;
-                        totalUserDataArray[user].year = currentData[team].year;
-                        totalUserDataArray[user].wins = totalUserDataArray[user].wins + currentData[team].wins;
-                        totalUserDataArray[user].losses = totalUserDataArray[user].losses  + currentData[team].losses ;
-                        totalUserDataArray[user].pfcurrent = (Number(totalUserDataArray[user].pf) + Number(currentData[team].pf)).toFixed(1);
-                        totalUserDataArray[user].pacurrent = (Number(totalUserDataArray[user].pa) + Number(currentData[team].pa)).toFixed(1);
-                        totalUserDataArray[user].imgUrl = currentData[team].imgUrl;
-                }
+            for (let user in totalUserDataArray){
+                totalUserDataArray[user].pfhistory = 0;
+                totalUserDataArray[user].pahistory = 0;
+                userCount++;
             }
-            totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
-    }
-    //console.log(totalUserDataArray);
-    return(totalUserDataArray);
+            //console.log(totalUserDataArray);
+            for (let user in totalUserDataArray){
+                    for (let team in currentData){
+                        if (currentData[team].owner === totalUserDataArray[user].owner){
+                            totalUserDataArray[user].teamname = currentData[team].teamname;
+                            totalUserDataArray[user].team = currentData[team].team;
+                            totalUserDataArray[user].teampage = currentData[team].teampage;
+                            totalUserDataArray[user].year = currentData[team].year;
+                            totalUserDataArray[user].wins = totalUserDataArray[user].wins + currentData[team].wins;
+                            totalUserDataArray[user].losses = totalUserDataArray[user].losses  + currentData[team].losses ;
+                            totalUserDataArray[user].pfcurrent = (Number(totalUserDataArray[user].pf) + Number(currentData[team].pf)).toFixed(1);
+                            totalUserDataArray[user].pacurrent = (Number(totalUserDataArray[user].pa) + Number(currentData[team].pa)).toFixed(1);
+                            totalUserDataArray[user].imgUrl = currentData[team].imgUrl;
+                    }
+                }
+                totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
+            }
+            //console.log(totalUserDataArray);
+            return(totalUserDataArray);
+        }
+        else{
+            const currentData = await this.getCurrentUserData(leagueId, seasonId);
+            //console.log(currentData);
+            //console.log(historyData);
+            let totalUserDataArray = currentData;
+            let userCount = 0;
+
+            for (let user in totalUserDataArray){
+                totalUserDataArray[user].pfhistory = 0;
+                totalUserDataArray[user].pahistory = 0;
+                userCount++;
+            }
+            //console.log(totalUserDataArray);
+            for (let user in totalUserDataArray){
+
+                            totalUserDataArray[user].pfcurrent = (Number(totalUserDataArray[user].pf)).toFixed(1);
+                            totalUserDataArray[user].pacurrent = (Number(totalUserDataArray[user].pa)).toFixed(1);
+                            totalUserDataArray[user].championships = [];
+                            totalUserDataArray[user].sackos = [];
+               
+                totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
+            }
+            //console.log(totalUserDataArray);
+            return(totalUserDataArray);
+
+        }
     }
 
     getimgUrl = async (teampage) => {
