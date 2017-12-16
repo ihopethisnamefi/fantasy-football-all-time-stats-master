@@ -15,7 +15,14 @@ class AllTimeRankingsTable extends Component {
             userTotalHistoricalDataBak: [],
             sortPercAsc: "ASC",
             sortLossAsc: "ASC",
-            sortWinAsc: "ASC"
+            sortWinAsc: "ASC",
+            sortPfCurrAsc: "ASC",
+            sortPaCurrAsc: "ASC",
+            sortYearsCompAsc: "ASC",
+            sortPfCompAsc: "ASC",
+            sortPaCompAsc: "ASC",
+            sortPFYAAsc: "ASC",
+            sortPAYAAsc: "ASC"
         }
     }
 
@@ -42,9 +49,9 @@ class AllTimeRankingsTable extends Component {
         }
     }
 
-    switchLeague() {
+    /*switchLeague() {
         this.props.history.push("/");
-    }
+    }*/
 
 
     filterTeams = (e, { value }) => {
@@ -64,7 +71,6 @@ class AllTimeRankingsTable extends Component {
                 userTotalHistoricalData: newArray,
             };
         }
-
         this.setState(state);
     }
 
@@ -88,7 +94,6 @@ class AllTimeRankingsTable extends Component {
                     sortPercAsc: "DESC"
                 };
             }
-       
         this.setState(state);
     }
 
@@ -112,14 +117,11 @@ class AllTimeRankingsTable extends Component {
                 sortLossAsc: "DESC"
             };
         }
-      
-       
         this.setState(state);
     }
 
     sortWin(){
         let newArray = this.state.userTotalHistoricalData;
-       
         if (this.state.sortWinAsc === "DESC"){
             newArray.sort(function(a,b){
                 return parseFloat(b.wins) - parseFloat(a.wins);
@@ -138,8 +140,167 @@ class AllTimeRankingsTable extends Component {
                 sortWinAsc: "DESC"
             };
         }
-      
-       
+        this.setState(state);
+    }
+
+    sortPfCurr(){
+        let newArray = this.state.userTotalHistoricalData;  
+        if (this.state.sortPfCurrAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.pfcurrent) - parseFloat(a.pfcurrent);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPfCurrAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.pfcurrent) - parseFloat(b.pfcurrent);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPfCurrAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortPaCurr(){
+        let newArray = this.state.userTotalHistoricalData; 
+        if (this.state.sortPaCurrAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.pacurrent) - parseFloat(a.pacurrent);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPaCurrAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.pacurrent) - parseFloat(b.pacurrent);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPaCurrAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortYearsComp(){
+        let newArray = this.state.userTotalHistoricalData; 
+        if (this.state.sortYearsCompAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.yearsActive) - parseFloat(a.yearsActive);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortYearsCompAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.yearsActive) - parseFloat(b.yearsActive);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortYearsCompAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortPfComp(){
+        let newArray = this.state.userTotalHistoricalData; 
+        if (this.state.sortPfCompAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.pf) - parseFloat(a.pf);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPfCompAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.pf) - parseFloat(b.pf);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPfCompAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortPaComp(){
+        let newArray = this.state.userTotalHistoricalData; 
+        if (this.state.sortPaCompAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.pa) - parseFloat(a.pa);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPaCompAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.pa) - parseFloat(b.pa);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPaCompAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortPFYA(){
+        let newArray = this.state.userTotalHistoricalData; 
+        if (this.state.sortPFYAAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.pfya) - parseFloat(a.pfya);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPFYAAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.pfya) - parseFloat(b.pfya);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPFYAAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortPAYA(){
+        let newArray = this.state.userTotalHistoricalData; 
+        if (this.state.sortPAYAAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.paya) - parseFloat(a.paya);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPAYAAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.paya) - parseFloat(b.paya);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortPAYAAsc: "DESC"
+            };
+        } 
         this.setState(state);
     }
 
@@ -201,13 +362,48 @@ class AllTimeRankingsTable extends Component {
                             </Table.HeaderCell>
                             <Table.HeaderCell>Titles</Table.HeaderCell>
                             <Table.HeaderCell>Sackos</Table.HeaderCell>
-                            <Table.HeaderCell>PF Through {this.props.match.params.seasonId} </Table.HeaderCell>
-                            <Table.HeaderCell>PA Through {this.props.match.params.seasonId}</Table.HeaderCell>
-                            <Table.HeaderCell>Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>PF Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>PA Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>PF/Years Completed</Table.HeaderCell>
-                            <Table.HeaderCell>PA/Years Completed</Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortPfCurr()}>
+                                    <div class="visible content">PF Through {this.props.match.params.seasonId}</div>
+                                    <div class="hidden content">Sort {this.state.sortPfCurrAsc}</div>
+                                </div> 
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortPaCurr()}>
+                                    <div class="visible content">PA Through {this.props.match.params.seasonId}</div>
+                                    <div class="hidden content">Sort {this.state.sortPaCurrAsc}</div>
+                                </div> 
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortYearsComp()}>
+                                    <div class="visible content">Years Completed</div>
+                                    <div class="hidden content">Sort {this.state.sortYearsCompAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortPfComp()}>
+                                    <div class="visible content">PF Years Completed</div>
+                                    <div class="hidden content">Sort {this.state.sortPfCompAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortPaComp()}>
+                                    <div class="visible content">PA Years Completed</div>
+                                    <div class="hidden content">Sort {this.state.sortPaCompAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortPFYA()}>
+                                    <div class="visible content">PF/Years Completed</div>
+                                    <div class="hidden content">Sort {this.state.sortPFYAAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortPAYA()}>
+                                    <div class="visible content">PA/Years Completed</div>
+                                    <div class="hidden content">Sort {this.state.sortPAYAAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
                         </Table.Row>
                         </Table.Header>
 
