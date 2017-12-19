@@ -22,7 +22,9 @@ class AllTimeRankingsTable extends Component {
             sortPfCompAsc: "ASC",
             sortPaCompAsc: "ASC",
             sortPFYAAsc: "ASC",
-            sortPAYAAsc: "ASC"
+            sortPAYAAsc: "ASC",
+            sortTitlesAsc: "ASC",
+            sortSackosAsc: "ASC"
         }
     }
 
@@ -304,6 +306,52 @@ class AllTimeRankingsTable extends Component {
         this.setState(state);
     }
 
+    sortTitles(){
+        let newArray = this.state.userTotalHistoricalData;
+        if (this.state.sortTitlesAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.championships) - parseFloat(a.championships);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortTitlesAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.championships) - parseFloat(b.championships);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortTitlesAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
+    sortSackos(){
+        let newArray = this.state.userTotalHistoricalData;
+        if (this.state.sortSackosAsc === "DESC"){
+            newArray.sort(function(a,b){
+                return parseFloat(b.sackos) - parseFloat(a.sackos);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortSackosAsc: "ASC"
+            };
+        }
+        else{
+            newArray.sort(function(a,b){
+                return parseFloat(a.sackos) - parseFloat(b.sackos);
+            });
+            var state = {
+                userTotalHistoricalData: newArray,
+                sortSackosAsc: "DESC"
+            };
+        } 
+        this.setState(state);
+    }
+
     render() {
         const {userTotalHistoricalData} = this.state;
         /*const panes = [
@@ -360,8 +408,18 @@ class AllTimeRankingsTable extends Component {
                                     <div class="hidden content">Sort {this.state.sortPercAsc}</div>
                                 </div>
                             </Table.HeaderCell>
-                            <Table.HeaderCell>Titles</Table.HeaderCell>
-                            <Table.HeaderCell>Sackos</Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortTitles()}>
+                                    <div class="visible content">Titles</div>
+                                    <div class="hidden content">Sort {this.state.sortTitlesAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                <div class="ui animated fade button" onClick={() => this.sortSackos()}>
+                                    <div class="visible content">Sackos</div>
+                                    <div class="hidden content">Sort {this.state.sortSackosAsc}</div>
+                                </div>
+                            </Table.HeaderCell>
                             <Table.HeaderCell>
                                 <div class="ui animated fade button" onClick={() => this.sortPfCurr()}>
                                     <div class="visible content">PF Through {this.props.match.params.seasonId}</div>

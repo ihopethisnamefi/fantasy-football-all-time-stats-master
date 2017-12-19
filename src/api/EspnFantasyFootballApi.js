@@ -175,8 +175,18 @@ export class EspnFantasyFootballApi {
             if (Number(newArray[team].finalrank) === userCount){
                 sackoArray.push(newArray[team].year);
             }
-            newArray[team].championships = champArray;
-            newArray[team].sackos = sackoArray;
+            if (champArray.length > 0){
+                newArray[team].championships = champArray; 
+            }
+            else{
+                newArray[team].championships = [0];
+            }
+            if (sackoArray.length > 0){
+                newArray[team].sackos = sackoArray;
+            }
+            else{
+                newArray[team].sackos = [0];
+            }
             newArray[team].pfcurrent = newArray[team].pf;
             newArray[team].pacurrent = newArray[team].pa;
             newArray[team].imgUrl = "https://openclipart.org/image/2400px/svg_to_png/202776/pawn.png";
