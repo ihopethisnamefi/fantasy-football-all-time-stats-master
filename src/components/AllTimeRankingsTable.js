@@ -490,12 +490,22 @@ class AllTimeRankingsTable extends Component {
                             </Table.Cell>
                             <Table.Cell>
                                 {team.championships.map(function(champ,i){
-                                        return <div>{champ}</div>
+                                        if (champ === 0){
+                                            return <div>None</div>
+                                        }
+                                        else{
+                                            return <div>{champ}</div>   
+                                        }
                                     })}
                             </Table.Cell>
                             <Table.Cell>
                                 { team.sackos.map(function(sacko,i){
-                                        return <div>{sacko}</div>
+                                        if (sacko === 0){
+                                            return <div>None</div>
+                                        }
+                                        else{
+                                            return <div>{sacko}</div>  
+                                        }
                                     })}
                             </Table.Cell>
                             <Table.Cell>
