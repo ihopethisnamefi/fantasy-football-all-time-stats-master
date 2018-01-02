@@ -9,6 +9,7 @@ export class EspnFantasyFootballApi {
     constructor() {
         axiosCookieJarSupport(axios);
         const cookieJar = new tough.CookieJar();
+        this.offseason = true;
         this.proxyurl = "https://mighty-fjord-78377.herokuapp.com/";
 
         axios.defaults.jar = cookieJar;
@@ -91,42 +92,83 @@ export class EspnFantasyFootballApi {
     getHistoricalUserData = async (leagueId, seasonId, yearsArray) => {
         //const yearsArray = await this.getYearsHistory(leagueId, seasonId);
         let historicalTeamsArray = [];
-        for (let y=1; y<yearsArray.length; y++){
-            var response = await axios.get(`${this.proxyurl}http://games.espn.com/ffl/tools/finalstandings?leagueId=${leagueId}&seasonId=${yearsArray[y]}`);
-                let $ = cheerio.load(response.data);  
-                let historyTeams = [];
-                //let historyArray = [];
-                $('[id=finalRankingsTable]').children().children().next().next().attr('class','sortableRow').each( (i, elm) => {
-                    historyTeams.push({
-                      team : $(elm).children().eq(1).children().attr('title'),
-                      teampage : $(elm).children().eq(1).children().attr('href'),
-                      finalrank : $(elm).children().eq(0).text(),
-                      record: $(elm).children().eq(4).text(),
-                      pf : Number($(elm).children().eq(5).text()),
-                      pa : Number($(elm).children().eq(6).text()),
-                      year : Number(yearsArray[y]),
-                  });
-                });
-        
-                //split record into 2 different fields wins and losses, grab team name from team, grab owner from team name
-                for (let t in historyTeams){
-                    let splitRecord = []
-                    let splitTeam = []
-                    splitRecord = historyTeams[t].record.split('-');
-                    historyTeams[t].wins = Number(splitRecord[0]);
-                    historyTeams[t].losses = Number(splitRecord[1]);
+        if (this.offseason === false){
+            for (let y=1; y<yearsArray.length; y++){
+                var response = await axios.get(`${this.proxyurl}http://games.espn.com/ffl/tools/finalstandings?leagueId=${leagueId}&seasonId=${yearsArray[y]}`);
+                    let $ = cheerio.load(response.data);  
+                    let historyTeams = [];
+                    //let historyArray = [];
+                    $('[id=finalRankingsTable]').children().children().next().next().attr('class','sortableRow').each( (i, elm) => {
+                        historyTeams.push({
+                        team : $(elm).children().eq(1).children().attr('title'),
+                        teampage : $(elm).children().eq(1).children().attr('href'),
+                        finalrank : $(elm).children().eq(0).text(),
+                        record: $(elm).children().eq(4).text(),
+                        pf : Number($(elm).children().eq(5).text()),
+                        pa : Number($(elm).children().eq(6).text()),
+                        year : Number(yearsArray[y]),
+                    });
+                    });
+            
+                    //split record into 2 different fields wins and losses, grab team name from team, grab owner from team name
+                    for (let t in historyTeams){
+                        let splitRecord = []
+                        let splitTeam = []
+                        splitRecord = historyTeams[t].record.split('-');
+                        historyTeams[t].wins = Number(splitRecord[0]);
+                        historyTeams[t].losses = Number(splitRecord[1]);
 
-                    splitTeam = historyTeams[t].team.split(' (');
-                    historyTeams[t].teamname = splitTeam[0];
-                    historyTeams[t].owner = historyTeams[t].team.match(/\(([^)]+)\)/)[1]; 
-                  }
-                //organize list of teams object by year
-               /* historyArray.push({
-                  year : yearsArray[y],
-                  teams : historyTeams
-              });*/
-              historicalTeamsArray.push(historyTeams);
-     
+                        splitTeam = historyTeams[t].team.split(' (');
+                        historyTeams[t].teamname = splitTeam[0];
+                        historyTeams[t].owner = historyTeams[t].team.match(/\(([^)]+)\)/)[1]; 
+                    }
+                    //organize list of teams object by year
+                /* historyArray.push({
+                    year : yearsArray[y],
+                    teams : historyTeams
+                });*/
+                historicalTeamsArray.push(historyTeams);
+        
+                }
+            }
+        else{
+            for (let y=0; y<yearsArray.length; y++){
+                var response = await axios.get(`${this.proxyurl}http://games.espn.com/ffl/tools/finalstandings?leagueId=${leagueId}&seasonId=${yearsArray[y]}`);
+                    let $ = cheerio.load(response.data);  
+                    let historyTeams = [];
+                    //let historyArray = [];
+                    $('[id=finalRankingsTable]').children().children().next().next().attr('class','sortableRow').each( (i, elm) => {
+                        historyTeams.push({
+                          team : $(elm).children().eq(1).children().attr('title'),
+                          teampage : $(elm).children().eq(1).children().attr('href'),
+                          finalrank : $(elm).children().eq(0).text(),
+                          record: $(elm).children().eq(4).text(),
+                          pf : Number($(elm).children().eq(5).text()),
+                          pa : Number($(elm).children().eq(6).text()),
+                          year : Number(yearsArray[y]),
+                      });
+                    });
+            
+                    //split record into 2 different fields wins and losses, grab team name from team, grab owner from team name
+                    for (let t in historyTeams){
+                        let splitRecord = []
+                        let splitTeam = []
+                        splitRecord = historyTeams[t].record.split('-');
+                        historyTeams[t].wins = Number(splitRecord[0]);
+                        historyTeams[t].losses = Number(splitRecord[1]);
+    
+                        splitTeam = historyTeams[t].team.split(' (');
+                        historyTeams[t].teamname = splitTeam[0];
+                        historyTeams[t].owner = historyTeams[t].team.match(/\(([^)]+)\)/)[1]; 
+                      }
+                    //organize list of teams object by year
+                   /* historyArray.push({
+                      year : yearsArray[y],
+                      teams : historyTeams
+                  });*/
+                  historicalTeamsArray.push(historyTeams);
+         
+                }
             }
             //console.log(historicalTeamsArray);
             return(historicalTeamsArray);
@@ -198,7 +240,7 @@ export class EspnFantasyFootballApi {
     getTotalUserData = async (leagueId, seasonId) => {
         const yearsArray = await this.getYearsHistory(leagueId, seasonId);
         //console.log(yearsArray);
-        if (yearsArray.length > 0){
+        if (yearsArray.length > 0 && this.offseason === false){
             const historyData = await this.getHistorySummationData(leagueId, seasonId, yearsArray);
             const currentData = await this.getCurrentUserData(leagueId, seasonId);
             //console.log(currentData);
@@ -233,13 +275,57 @@ export class EspnFantasyFootballApi {
             //console.log(totalUserDataArray);
             return(totalUserDataArray);
         }
+        else if (yearsArray.length > 0 && this.offseason === true){
+            const historyData = await this.getHistorySummationData(leagueId, seasonId, yearsArray);
+            const currentData = await this.getCurrentUserData(leagueId, seasonId);
+            let totalUserDataArray = historyData;
+            let userCount = 0;
+
+            for (let user in totalUserDataArray){
+                totalUserDataArray[user].pfhistory = 0;
+                totalUserDataArray[user].pahistory = 0;
+                userCount++;
+            }
+            for (let user in totalUserDataArray){
+                    for (let team in currentData){
+                        if (currentData[team].owner === totalUserDataArray[user].owner){
+                            totalUserDataArray[user].teamname = currentData[team].teamname;
+                            totalUserDataArray[user].team = currentData[team].team;
+                            totalUserDataArray[user].teampage = currentData[team].teampage;
+                            totalUserDataArray[user].year = currentData[team].year;
+                            totalUserDataArray[user].imgUrl = currentData[team].imgUrl;
+                    }
+                }
+                totalUserDataArray[user].pfya = (totalUserDataArray[user].pf/totalUserDataArray[user].yearsActive).toFixed(1);
+                totalUserDataArray[user].paya = (totalUserDataArray[user].pa/totalUserDataArray[user].yearsActive).toFixed(1);
+                totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
+            }
+
+            return(totalUserDataArray);
+
+        }
+        else if (yearsArray.length === 0 && this.offseason === true){
+            let currentYearsArray = [seasonId];
+            //console.log("years array " + yearsArray + "current years array " + currentYearsArray)
+            const historyData = await this.getHistorySummationData(leagueId, seasonId, currentYearsArray);
+            const currentData = await this.getCurrentUserData(leagueId, seasonId);
+            let totalUserDataArray = historyData;
+
+            for (let user in totalUserDataArray){
+                totalUserDataArray[user].pfcurrent = (Number(totalUserDataArray[user].pf)).toFixed(1);
+                totalUserDataArray[user].pacurrent = (Number(totalUserDataArray[user].pa)).toFixed(1);
+                totalUserDataArray[user].winperc = getPerc(totalUserDataArray[user].wins,totalUserDataArray[user].losses);
+                totalUserDataArray[user].pfya = totalUserDataArray[user].pfcurrent;
+                totalUserDataArray[user].paya = totalUserDataArray[user].pacurrent;
+                totalUserDataArray[user].imgUrl = await this.getimgUrl(totalUserDataArray[user].teampage);
+            }
+
+            return(totalUserDataArray);
+        }
         else{
             const currentData = await this.getCurrentUserData(leagueId, seasonId);
-            //console.log(currentData);
-            //console.log(historyData);
             let totalUserDataArray = currentData;
 
-            //console.log(totalUserDataArray);
             for (let user in totalUserDataArray){
                 totalUserDataArray[user].pfhistory = 0;
                 totalUserDataArray[user].pahistory = 0;
@@ -252,9 +338,8 @@ export class EspnFantasyFootballApi {
                 totalUserDataArray[user].pfya = totalUserDataArray[user].pfcurrent;
                 totalUserDataArray[user].paya = totalUserDataArray[user].pacurrent;
             }
-            //console.log(totalUserDataArray);
-            return(totalUserDataArray);
 
+            return(totalUserDataArray);
         }
     }
 

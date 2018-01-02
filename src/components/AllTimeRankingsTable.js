@@ -391,73 +391,73 @@ class AllTimeRankingsTable extends Component {
                                     ]} />
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortWin()}>
+                                <div class="ui animated fade button" title="Total Amount Of Wins Over All Years Played" onClick={() => this.sortWin()}>
                                     <div class="visible content">Wins</div>
                                     <div class="hidden content">Sort {this.state.sortWinAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortLoss()}>
+                                <div class="ui animated fade button" title="Total Amount Of Losses Over All Years Played" onClick={() => this.sortLoss()}>
                                     <div class="visible content">Losses</div>
                                     <div class="hidden content">Sort {this.state.sortLossAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPerc()}>
+                                <div class="ui animated fade button" title="Wins / (Wins + Losses)" onClick={() => this.sortPerc()}>
                                     <div class="visible content">Win %</div>
                                     <div class="hidden content">Sort {this.state.sortPercAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortTitles()}>
+                                <div class="ui animated fade button" title="Years Finished First Place" onClick={() => this.sortTitles()}>
                                     <div class="visible content">Titles</div>
                                     <div class="hidden content">Sort {this.state.sortTitlesAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortSackos()}>
+                                <div class="ui animated fade button" title="Years Finished Last Place" onClick={() => this.sortSackos()}>
                                     <div class="visible content">Sackos</div>
                                     <div class="hidden content">Sort {this.state.sortSackosAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPfCurr()}>
+                                <div class="ui animated fade button" title="Points Scored For All Years Completed + Current Year Playing" onClick={() => this.sortPfCurr()}>
                                     <div class="visible content">PF Through {this.props.match.params.seasonId}</div>
                                     <div class="hidden content">Sort {this.state.sortPfCurrAsc}</div>
                                 </div> 
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPaCurr()}>
+                                <div class="ui animated fade button" title="Points Scored Against For All Years Completed + Current Year Playing" onClick={() => this.sortPaCurr()}>
                                     <div class="visible content">PA Through {this.props.match.params.seasonId}</div>
                                     <div class="hidden content">Sort {this.state.sortPaCurrAsc}</div>
                                 </div> 
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortYearsComp()}>
+                                <div class="ui animated fade button" title="Number Of Finished Seasons" onClick={() => this.sortYearsComp()}>
                                     <div class="visible content">Years Completed</div>
                                     <div class="hidden content">Sort {this.state.sortYearsCompAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPfComp()}>
+                                <div class="ui animated fade button" title="Points Scored For All Finished Seasons" onClick={() => this.sortPfComp()}>
                                     <div class="visible content">PF Years Completed</div>
                                     <div class="hidden content">Sort {this.state.sortPfCompAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPaComp()}>
+                                <div class="ui animated fade button" title="Points Scored Against For All Finished Seasons" onClick={() => this.sortPaComp()}>
                                     <div class="visible content">PA Years Completed</div>
                                     <div class="hidden content">Sort {this.state.sortPaCompAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPFYA()}>
+                                <div class="ui animated fade button" title="Points Scored Average For All Finished Seasons" onClick={() => this.sortPFYA()}>
                                     <div class="visible content">PF/Years Completed</div>
                                     <div class="hidden content">Sort {this.state.sortPFYAAsc}</div>
                                 </div>
                             </Table.HeaderCell>
                             <Table.HeaderCell>
-                                <div class="ui animated fade button" onClick={() => this.sortPAYA()}>
+                                <div class="ui animated fade button" title="Points Scored Against Average For All Finished Seasons" onClick={() => this.sortPAYA()}>
                                     <div class="visible content">PA/Years Completed</div>
                                     <div class="hidden content">Sort {this.state.sortPAYAAsc}</div>
                                 </div>
