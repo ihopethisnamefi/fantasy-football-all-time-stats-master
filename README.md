@@ -3,7 +3,7 @@ Hosted on Heroku.
 
 https://espn-ff-all-time-stats.herokuapp.com/
 
-###Note: League must be viewable to public, see league setting below
+### Note: League must be viewable to public, see league setting below
 ![alt text](https://i.imgur.com/ZConf4E.png)
 
 ## To Do:
