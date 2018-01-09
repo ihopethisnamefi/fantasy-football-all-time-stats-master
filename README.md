@@ -9,13 +9,12 @@ https://espn-ff-all-time-stats.herokuapp.com/
 ## To Do:
 1. [x] add all historical teams to returned array
 2. [x] Sort headers for all columns 
-3. [ ] Add two tabs, one for points one for wins for viewing pleasure
-4. [x] filters for teams showed (all teams vs only 2017) DONE
-5. [x] Fix pictures
-6. [ ] Update UI
-7. [ ] Add export HTML functionality
-8. [ ] User login to save leagues
-9. [ ] Maybe an email league mates feature?
+3. [x] filters for teams showed (all teams vs only 2017) DONE
+4. [x] Fix pictures
+5. [ ] Update UI
+6. [ ] Add export table HTML functionality
+7. [ ] Add user login to save leagues
+8. [ ] Maybe an email league mates feature?
 
 ## Development
 Built with [create-react-app](https://github.com/facebookincubator/create-react-app)
