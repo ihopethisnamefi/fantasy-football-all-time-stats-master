@@ -3,6 +3,9 @@ Hosted on Heroku.
 
 https://espn-ff-all-time-stats.herokuapp.com/
 
+###Note: League must be viewable to public, see league setting below
+![alt text](https://i.imgur.com/ZConf4E.png)
+
 ## To Do:
 1. [x] add all historical teams to returned array
 2. [x] Sort headers for all columns 
