@@ -376,7 +376,7 @@ class AllTimeRankingsTable extends Component {
                     <Link to="/">Switch to a different League</Link>
                     <Segment>
                     <Header>All Time Stats {this.props.match.params.seasonId}</Header>
-                    <Table basic='very' celled unstackable>
+                    <Table basic='very' celled unstackable selectable>
                         <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>
